@@ -6,7 +6,7 @@ bot = telebot.TeleBot(TOKEN)
 
 
 @bot.message_handler(commands=['start', 'help'])
-def help(message: telebot.types.Message):
+def helper(message: telebot.types.Message):
     text = 'Введите необходимое количество буханок!'
     bot.reply_to(message, text)
 
@@ -20,19 +20,19 @@ def convert(message: telebot.types.Message):
         persons = values
 
         person = int(''.join(map(str, persons)))
-        print(person)
+
     except APIException as e:
         bot.reply_to(message, f'Ошибка!\n{e}')
     except Exception as e:
-        bot.reply_to(message, f'Не удалось обработать команду!\nВведите целое число!')
+        bot.reply_to(message, f'Не удалось обработать команду!\nВведите целое число!\nОшибка: {e}')
     else:
         text = f'Ha {person} буханок:\
-               \nМука В/С....{person*125} грамм,\
-               \nМука 1с......{person*102} грамм,\
-               \nВода............{person*160} грамм,\
-               \nЗакваска....{person*15} грамм,\
-               \nСоль............{person*5} грамм,\
-               \nДобавки.....{person*20} грамм.'
+               \nМука В/С....{person * 125} грамм,\
+               \nМука 1с......{person * 102} грамм,\
+               \nВода............{person * 160} грамм,\
+               \nЗакваска....{person * 15} грамм,\
+               \nСоль............{person * 5} грамм,\
+               \nДобавки.....{person * 20} грамм.'
         bot.send_message(message.chat.id, text)
 
 
