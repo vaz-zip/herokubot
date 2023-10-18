@@ -1,4 +1,4 @@
 import os
-
-TOKEN = os.environ['TG_BOT_TOKEN']
+TOKEN = "5274103717:AAHSZ3M8fIVJ59e3mmIF4WUnqoxA19X7SZM"
+# TOKEN = os.environ['TG_BOT_TOKEN']
 
