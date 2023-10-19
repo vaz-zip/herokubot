@@ -15,10 +15,10 @@ def helper(message: telebot.types.Message):
 @bot.message_handler(content_types=['text', ])
 def get_text(message):
     if message.text == '1':
-        mess = f'Привет, <b>{message.from_user.first_name}! Выберите нужный рецепт!'
+        mess = f'{message.from_user.first_name}, выберите нужный рецепт!'
         markup = types.InlineKeyboardMarkup()
-        markup.add(types.InlineKeyboardButton('a', callback_data = 'recept1'))
-        markup.add(types.InlineKeyboardButton('s', callback_data = 'recept2'))
+        markup.add(types.InlineKeyboardButton('Багет', callback_data = 'recept1'))
+        markup.add(types.InlineKeyboardButton('Тыквенный', callback_data = 'recept2'))
         markup.add(types.InlineKeyboardButton('z', callback_data = 'recept3'))
         markup.add(types.InlineKeyboardButton('d', callback_data = 'recept4'))
         markup.add(types.InlineKeyboardButton('f', callback_data = 'recept5'))
