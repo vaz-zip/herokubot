@@ -17,13 +17,62 @@ def get_text(message):
     if message.text == '1':
         mess = f'{message.from_user.first_name}, выберите нужный рецепт!'
         markup = types.InlineKeyboardMarkup()
-        markup.add(types.InlineKeyboardButton('Багет', callback_data = 'recept1'))
-        markup.add(types.InlineKeyboardButton('Тыквенный', callback_data = 'recept2'))
-        markup.add(types.InlineKeyboardButton('z', callback_data = 'recept3'))
-        markup.add(types.InlineKeyboardButton('d', callback_data = 'recept4'))
-        markup.add(types.InlineKeyboardButton('f', callback_data = 'recept5'))
-        markup.add(types.InlineKeyboardButton('r', callback_data = 'recept6'))
+        markup.add(types.InlineKeyboardButton('Багет'))
+        markup.add(types.InlineKeyboardButton('Тыквенный'))
+        markup.add(types.InlineKeyboardButton('Чиабатта'))
+        markup.add(types.InlineKeyboardButton('Зерновой'))
+        markup.add(types.InlineKeyboardButton('Фитнес'))
+        markup.add(types.InlineKeyboardButton('Бородинский'))
         bot.reply_to(message, mess, reply_markup = markup)
+        bot.register_next_step_handler(message, on_click)
+
+def on_click(message):
+    if message.text == 'Багет':
+        try:
+            values = message.text.split(' ')
+            if len(values) != 1:
+                raise APIException('Знвчение должно быть одно!')
+            persons = values
+            person = int(''.join(map(str, persons)))
+        except APIException as e:
+            bot.reply_to(message, f'Ошибка!\n{e}')
+        except Exception as e:
+            bot.reply_to(message, f'Не удалось обработать команду!\nВведите целое число!\nОшибка: {e}')
+        else:
+            text = f'Количество буханок: {person}\
+               \nМука В/С....{person * 125} грамм,\
+               \nМука 1с......{person * 102} грамм,\
+               \nВода............{person * 160} грамм,\
+               \nЗакваска....{person * 15} грамм,\
+               \nСоль............{person * 5} грамм,\
+               \nДобавки.....{person * 20} грамм,\
+               \nМВУУУ-ХА-ХА-ХА! I`am CRAGY-DACK !!'
+            bot.send_message(message.chat.id, text)        
+
+# @bot.callback_query_handler(func=lambda callback: True)
+# def callback_message(callback):
+#     if callback.data == 'recept1':
+#         try:
+#             values = message.text.split(' ')
+#             if len(values) != 1:
+#                 raise APIException('Знвчение должно быть одно!')
+#             persons = values
+#             person = int(''.join(map(str, persons)))
+#         except APIException as e:
+#             bot.reply_to(message, f'Ошибка!\n{e}')
+#         except Exception as e:
+#             bot.reply_to(message, f'Не удалось обработать команду!\nВведите целое число!\nОшибка: {e}')
+#         else:
+#             text = f'Количество буханок: {person}\
+#                \nМука В/С....{person * 125} грамм,\
+#                \nМука 1с......{person * 102} грамм,\
+#                \nВода............{person * 160} грамм,\
+#                \nЗакваска....{person * 15} грамм,\
+#                \nСоль............{person * 5} грамм,\
+#                \nДобавки.....{person * 20} грамм,\
+#                \nМВУУУ-ХА-ХА-ХА! I`am CRAGY-DACK !!'
+#             bot.send_message(message.chat.id, text)
+
 
 
 # @bot.message_handler(content_types=['text', ])
