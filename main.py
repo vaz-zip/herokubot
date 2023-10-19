@@ -14,7 +14,7 @@ def helper(message: telebot.types.Message):
 
 
 @bot.message_handler(content_types=['text', ])
-def get_user_text(message):
+def get_user_text(message: telebot.types.Message):
     if message.text == '1': 
         mess = f'Привет, <b>{message.from_user.first_name}! <u> Я рецепт №1, введите количество буханок</u></b>'
         bot.send_message(message.chat.id, mess, parse_mode='html')
