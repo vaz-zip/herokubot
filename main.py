@@ -24,27 +24,7 @@ def get_user_text(message):
     elif message.text == '3':
         mess2 = f'Привет, <b>{message.from_user.first_name}! <u> Я рецепт №2, Введи чило булок</u></b>'
         bot.send_message(message.chat.id, mess2, parse_mode='html')
-        # try:
-        #     values = message.text.split(' ')
-        #     if len(values) != 1:
-        #         raise APIException('Значение должно быть одно!')
-        #     # persons = values
-        #     # person = int(''.join(map(str, persons)))
-        # except APIException as e:
-        #     bot.reply_to(message, f'Ошибка!\n{e}')
-        #     # except Exception as e:
-        #     #     bot.reply_to(message, f'Не удалось обработать команду!\nВведите целое число!\nОшибка: {e}')
-        #     # else:
-        #     #     text = f'Количество буханок: {person}\
-        #     #         \nМука В/С....{person * 125} грамм,\
-        #     #         \nМука 1с......{person * 102} грамм,\
-        #     #         \nВода............{person * 160} грамм,\
-        #     #         \nЗакваска....{person * 15} грамм,\
-        #     #         \nСоль............{person * 5} грамм,\
-        #     #         \nДобавки.....{person * 20} грамм,\
-        #     #         \nМВУУУ-ХА-ХА-ХА! Recept #3!!'
-        bot.send_message(message.chat.id, mess2, parse_mode='html')
-            # bot.send_message(message.chat.id, text)
+
             
 
 
