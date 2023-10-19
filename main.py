@@ -12,16 +12,18 @@ def helper(message: telebot.types.Message):
         \nВведите 1 '
     bot.send_message(message.chat.id, mess, parse_mode='html')
 
-@bot.message_handler(comands=['1'])
-def get_text(message: telebot.types.Message):
-    markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton('Багет', collback_data = 'recept1'))
-    markup.add(types.InlineKeyboardButton('Багет', collback_data = 'recept2'))
-    markup.add(types.InlineKeyboardButton('Багет', collback_data = 'recept3'))
-    markup.add(types.InlineKeyboardButton('Багет', collback_data = 'recept4'))
-    markup.add(types.InlineKeyboardButton('Багет', collback_data = 'recept5'))
-    markup.add(types.InlineKeyboardButton('Багет', collback_data = 'recept6'))
-    bot.reply_to(message, reply_markup = markup)
+@bot.message_handler(content_types=['text', ])
+def get_text(message):
+    if message.text == '1':
+        mess = f'Привет, <b>{message.from_user.first_name}! Выберите нужный рецепт!'
+        markup = types.InlineKeyboardMarkup()
+        markup.add(types.InlineKeyboardButton('a', callback_data = 'recept1'))
+        markup.add(types.InlineKeyboardButton('s', callback_data = 'recept2'))
+        markup.add(types.InlineKeyboardButton('z', callback_data = 'recept3'))
+        markup.add(types.InlineKeyboardButton('d', callback_data = 'recept4'))
+        markup.add(types.InlineKeyboardButton('f', callback_data = 'recept5'))
+        markup.add(types.InlineKeyboardButton('r', callback_data = 'recept6'))
+        bot.reply_to(message, mess, reply_markup = markup)
 
 
 # @bot.message_handler(content_types=['text', ])
