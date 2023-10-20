@@ -19,14 +19,19 @@ def start(message):
     markup.add(types.KeyboardButton('Фитнес'))
     markup.add(types.KeyboardButton('Бородинский'))
     bot.send_message(message.chat.id, f'Привет, {message.from_user.first_name}!', reply_markup=markup)
-    if message.text == 'Тыквенный':
-         bot.register_next_step_handler(message, pumpkin)
-    if message.text == 'Багет':
-         bot.register_next_step_handler(message, pumpkin)     
+    bot.register_next_step_handler(message, pumpkin)
+
+
+    def pumpkin(message):
+         if message.text == 'Тыквенный':
+              bot.send_message(message.chat.id, "Введите число булок")
+
+    # if message.text == 'Багет':
+    #      bot.register_next_step_handler(message, baguette)     
     #      pumpkin()  
          
     
-        # bot.reply_to(message, mess)
+        
         # bot.register_message_handler(message, convert)
     # bot.register_next_step_handler(message, convert)
     # bot.send_message(message.chat.id, mess, parse_mode='html')
@@ -48,7 +53,7 @@ def start(message):
 #         bot.register_next_step_handler(message, convert)
 
 
-# @bot.message_handler(content_types=['text', ])
+@bot.message_handler(content_types=['text', ])
 def baguette(message: telebot.types.Message):
         try:
             values = message.text.split(' ')
@@ -71,7 +76,7 @@ def baguette(message: telebot.types.Message):
                 \nРецептура БАГЕТ'
             bot.send_message(message.chat.id, text)
 
-@bot.message_handler(content_types=['text', ])
+# @bot.message_handler(content_types=['text', ])
 def pumpkin(message: telebot.types.Message):
         try:
             values = message.text.split(' ')
