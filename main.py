@@ -19,10 +19,11 @@ def start(message):
     markup.add(types.KeyboardButton('Фитнес'))
     markup.add(types.KeyboardButton('Бородинский'))
     bot.send_message(message.chat.id, f'Привет, {message.from_user.first_name}!', reply_markup=markup)
+    if message.text == 'Тыквенный':
+         bot.register_next_step_handler(message, pumpkin)
     if message.text == 'Багет':
-         baguette
-    elif message.text == 'Тыквенный':
-         pumpkin   
+         bot.register_next_step_handler(message, pumpkin)     
+    #      pumpkin()  
          
     
         # bot.reply_to(message, mess)
@@ -47,7 +48,7 @@ def start(message):
 #         bot.register_next_step_handler(message, convert)
 
 
-@bot.message_handler(content_types=['text', ])
+# @bot.message_handler(content_types=['text', ])
 def baguette(message: telebot.types.Message):
         try:
             values = message.text.split(' ')
@@ -83,7 +84,7 @@ def pumpkin(message: telebot.types.Message):
         except Exception as e:
             bot.reply_to(message, f'Не удалось обработать команду!\nВведите целое число!\nОшибка: {e}')
         else:
-            text = f'Количество буханок: {person}\
+             text = f'Количество буханок: {person}\
                 \nМука В/С....{person * 125} грамм,\
                 \nМука 1с......{person * 102} грамм,\
                 \nВода............{person * 160} грамм,\
@@ -91,7 +92,7 @@ def pumpkin(message: telebot.types.Message):
                 \nСоль............{person * 5} грамм,\
                 \nДобавки.....{person * 20} грамм,\
                 \nРецептура Тыквенный'
-            bot.send_message(message.chat.id, text)
+             bot.send_message(message.chat.id, text)
 
    
 # @bot.callback_query_handler(func=lambda callback: True)
