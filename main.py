@@ -6,7 +6,7 @@ from extension import APIException
 bot = telebot.TeleBot(TOKEN)
 
 
-@bot.message_handler(commands=['start'])
+@bot.message_handler(commands=['start'], content_types=['text', ])
 def start(message):
     # mess = f'Привет, <b>{message.from_user.first_name} <u>{message.from_user.last_name}!</u></b>\
         # \nвыберите нужный рецепт! '
@@ -19,6 +19,10 @@ def start(message):
     markup.add(types.KeyboardButton('Фитнес'))
     markup.add(types.KeyboardButton('Бородинский'))
     bot.send_message(message.chat.id, f'Привет, {message.from_user.first_name}!', reply_markup=markup)
+    if message.text == 'Багет':
+         convert
+         
+    
         # bot.reply_to(message, mess)
         # bot.register_message_handler(message, convert)
     # bot.register_next_step_handler(message, convert)
@@ -40,9 +44,9 @@ def start(message):
 #         # bot.register_message_handler(message, convert)
 #         bot.register_next_step_handler(message, convert)
 
+
 @bot.message_handler(content_types=['text', ])
 def convert(message: telebot.types.Message):
-    if text == 'Багет':
         try:
             values = message.text.split(' ')
             if len(values) != 1:
@@ -61,7 +65,7 @@ def convert(message: telebot.types.Message):
                 \nЗакваска....{person * 15} грамм,\
                 \nСоль............{person * 5} грамм,\
                 \nДобавки.....{person * 20} грамм,\
-                \nМВУУУ-ХА-ХА-ХА! I`am CRAGY-DACK !!'
+                \nРецептура БАГЕТ'
             bot.send_message(message.chat.id, text)
 # @bot.callback_query_handler(func=lambda callback: True)
 # def callback_message(callback):
