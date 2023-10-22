@@ -185,7 +185,7 @@ def baguette(message: telebot.types.Message):
 def pumpkin(message: telebot.types.Message):
     try:
         values = message.text.split(' ')
-        if len(values) != 1: 
+        if len(values) != 1:
             raise APIException('Знвчение должно быть одно!')
         persons = values
         person = int(''.join(map(str, persons)))
@@ -195,15 +195,15 @@ def pumpkin(message: telebot.types.Message):
         bot.reply_to(message, f'Не удалось обработать команду!\nВведите целое число!\nОшибка: {e}')
     else:
         text = f'Количество буханок: {person}\
-            \nТЫКВЕННОГО хлеба:\
+            \nТыквенного \
             \nМука В/С....{person * 125} грамм,\
             \nМука 1с......{person * 102} грамм,\
             \nВода............{person * 160} грамм,\
             \nЗакваска....{person * 15} грамм,\
             \nСоль............{person * 5} грамм,\
-            \nДобавки.....{person * 20} грамм\'
-               
+            \nДобавки.....{person * 20} грамм'
         bot.send_message(message.chat.id, text)
+        bot.register_next_step_handler(message, on_click)
 
 
 
