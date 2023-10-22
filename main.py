@@ -24,7 +24,7 @@ def articul(message, art):
 
 def on_click(message):
     if message.text == 'Багет':
-        articul(art=baguette)
+        articul(message, baguette)
     elif message.text == 'Бородинский':
         bot.send_message(message.chat.id, f"{message.from_user.first_name}, Введите количество")
         bot.register_next_step_handler(message, borodinsky )
