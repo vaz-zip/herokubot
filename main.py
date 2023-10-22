@@ -10,21 +10,23 @@ bot = telebot.TeleBot(TOKEN)
 def start(message):
     markup = types.ReplyKeyboardMarkup()
     markup.add(types.KeyboardButton('Багет'))
-    markup.add(types.KeyboardButton('Тыквенный'))
-    markup.add(types.KeyboardButton('Чиабатта'))
-    markup.add(types.KeyboardButton('Зерновой'))
-    markup.add(types.KeyboardButton('Фитнес'))
     markup.add(types.KeyboardButton('Бородинский'))
+    markup.add(types.KeyboardButton('Зерновой'))
+    markup.add(types.KeyboardButton('Тыквенный'))
+    markup.add(types.KeyboardButton('Фитнес'))
     bot.send_message(message.chat.id, f'{message.from_user.first_name}, с вами Хлеб-бот!', reply_markup=markup)
     bot.register_next_step_handler(message, on_click)
 
 def on_click(message):
-    if message.text == 'Тыквенный':
+    if message.text == 'Багет':
         bot.send_message(message.chat.id, "Введите число булок")
         bot.register_next_step_handler(message, baguette)
-    elif message.text == 'Багет':
+    elif message.text == 'Бородинский':
         bot.send_message(message.chat.id, "Введите число булок")
-        bot.register_next_step_handler(message, pumpkin )
+        bot.register_next_step_handler(message, borodinsky )
+    elif message.text == 'Тыквенный':
+        bot.send_message(message.chat.id, "Введите число булок")
+        bot.register_next_step_handler(message, pumpkin )    
 
 
 def baguette(message: telebot.types.Message):
@@ -39,8 +41,8 @@ def baguette(message: telebot.types.Message):
     except Exception as e:
         bot.reply_to(message, f'Не удалось обработать команду!\nВведите целое число!\nОшибка: {e}')
     else:
-        text = f'Количество буханок: {person}\
-            \nБАГЕТА \
+        text = f'Количество буханок {person}\
+            \nБАГЕТА: \
             \nМука В/С....{person * 125} грамм,\
             \nМука 1с......{person * 102} грамм,\
             \nВода............{person * 160} грамм,\
@@ -50,24 +52,28 @@ def baguette(message: telebot.types.Message):
         bot.send_message(message.chat.id, text)
         bot.register_next_step_handler(message, on_click)
 
-        # bot.register_next_step_handler(message, too_click)
-
-# def too_click():
-#     @bot.message_handler(content_types=['text', ])
-#     def baguette(message: telebot.types.Message):
-
-
-
-    #  elif message.text ==  
-            # if message.text == 'Багет':
-    #      bot.register_next_step_handler(message, baguette)     
-    #      pumpkin()  
-         
-    
-        
-        # bot.register_message_handler(message, convert)
-    # bot.register_next_step_handler(message, convert)
-    # bot.send_message(message.chat.id, mess, parse_mode='html')
+def borodinsky(message: telebot.types.Message):
+    try:
+        values = message.text.split(' ')
+        if len(values) != 1:
+            raise APIException('Знвчение должно быть одно!')
+        persons = values
+        person = int(''.join(map(str, persons)))
+    except APIException as e:
+        bot.reply_to(message, f'Ошибка!\n{e}')
+    except Exception as e:
+        bot.reply_to(message, f'Не удалось обработать команду!\nВведите целое число!\nОшибка: {e}')
+    else:
+        text = f'Количество буханок {person}\
+            \nБОРОДИНСКОГО: \
+            \nМука В/С....{person * 125} грамм,\
+            \nМука 1с......{person * 102} грамм,\
+            \nВода............{person * 160} грамм,\
+            \nЗакваска....{person * 15} грамм,\
+            \nСоль............{person * 5} грамм,\
+            \nДобавки.....{person * 20} грамм'
+        bot.send_message(message.chat.id, text)
+        bot.register_next_step_handler(message, on_click)
 
 # @bot.message_handler(content_types=['text', ])
 # def get_text(message):
@@ -194,8 +200,8 @@ def pumpkin(message: telebot.types.Message):
     except Exception as e:
         bot.reply_to(message, f'Не удалось обработать команду!\nВведите целое число!\nОшибка: {e}')
     else:
-        text = f'Количество буханок: {person}\
-            \nТыквенного \
+        text = f'Количество буханок {person}\
+            \nТыквенного: \
             \nМука В/С....{person * 125} грамм,\
             \nМука 1с......{person * 102} грамм,\
             \nВода............{person * 160} грамм,\
@@ -204,7 +210,5 @@ def pumpkin(message: telebot.types.Message):
             \nДобавки.....{person * 20} грамм'
         bot.send_message(message.chat.id, text)
         bot.register_next_step_handler(message, on_click)
-
-
 
 bot.polling(non_stop=True)
