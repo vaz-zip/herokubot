@@ -14,7 +14,8 @@ def start(message):
     markup.add(types.KeyboardButton('Зерновой'))
     markup.add(types.KeyboardButton('Тыквенный'))
     markup.add(types.KeyboardButton('Фитнес'))
-    bot.send_message(message.chat.id, f'{message.from_user.first_name}, с вами Хлеб-бот!', reply_markup=markup)
+    bot.send_message(message.chat.id, f'{message.from_user.first_name}, с вами Хлеб-бот!\
+                      \nВыберите в меню наменование хлеба!', reply_markup=markup)
     bot.register_next_step_handler(message, on_click)
 
 def articul(message, art):
@@ -26,18 +27,13 @@ def on_click(message):
     if message.text == 'Багет':
         articul(message, baguette)
     elif message.text == 'Бородинский':
-        bot.send_message(message.chat.id, f"{message.from_user.first_name}, Введите количество")
-        bot.register_next_step_handler(message, borodinsky )
+        articul(message, borodinsky)
     elif message.text == 'Зерновой':
-        bot.send_message(message.chat.id, f"{message.from_user.first_name}, Введите количество")
-        bot.register_next_step_handler(message, grain )   
+        articul(message, grain)  
     elif message.text == 'Тыквенный':
-        bot.send_message(message.chat.id, f"{message.from_user.first_name}, Введите количество")
-        bot.register_next_step_handler(message, pumpkin )
+        articul(message, pumpkin)
     elif message.text == 'Фитнес':
-        bot.send_message(message.chat.id, f"{message.from_user.first_name}, Введите количество")
-        bot.register_next_step_handler(message, fitness )          
-
+        articul(message, fitness)
 
 def baguette(message: telebot.types.Message):
     try:
@@ -157,5 +153,6 @@ def pumpkin(message: telebot.types.Message):
             \nДобавки.....{person * 20} грамм'
         bot.send_message(message.chat.id, text)
         bot.register_next_step_handler(message, on_click)
+
 
 bot.polling(non_stop=True)
