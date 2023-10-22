@@ -8,9 +8,6 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'], content_types=['text', ])
 def start(message):
-    # mess = f'Привет, <b>{message.from_user.first_name} <u>{message.from_user.last_name}!</u></b>\
-        # \nвыберите нужный рецепт! '
-    # mess = f'{message.from_user.first_name}, выберите нужный рецепт!'
     markup = types.ReplyKeyboardMarkup()
     markup.add(types.KeyboardButton('Багет'))
     markup.add(types.KeyboardButton('Тыквенный'))
@@ -18,16 +15,16 @@ def start(message):
     markup.add(types.KeyboardButton('Зерновой'))
     markup.add(types.KeyboardButton('Фитнес'))
     markup.add(types.KeyboardButton('Бородинский'))
-    bot.send_message(message.chat.id, f'Привет, {message.from_user.first_name}!', reply_markup=markup)
+    bot.send_message(message.chat.id, f'{message.from_user.first_name}, с вами Хлеб-бот!', reply_markup=markup)
     bot.register_next_step_handler(message, on_click)
 
 def on_click(message):
     if message.text == 'Тыквенный':
         bot.send_message(message.chat.id, "Введите число булок")
-        bot.register_next_step_handler(message, convert)
+        bot.register_next_step_handler(message, baguette)
     elif message.text == 'Багет':
         bot.send_message(message.chat.id, "Введите число булок")
-        bot.register_next_step_handler(message, baguette)
+        bot.register_next_step_handler(message, pumpkin )
 
 
 def baguette(message: telebot.types.Message):
@@ -36,23 +33,22 @@ def baguette(message: telebot.types.Message):
         if len(values) != 1:
             raise APIException('Знвчение должно быть одно!')
         persons = values
-
         person = int(''.join(map(str, persons)))
-
     except APIException as e:
         bot.reply_to(message, f'Ошибка!\n{e}')
     except Exception as e:
         bot.reply_to(message, f'Не удалось обработать команду!\nВведите целое число!\nОшибка: {e}')
     else:
         text = f'Количество буханок: {person}\
-               \nМука В/С....{person * 125} грамм,\
-               \nМука 1с......{person * 102} грамм,\
-               \nВода............{person * 160} грамм,\
-               \nЗакваска....{person * 15} грамм,\
-               \nСоль............{person * 5} грамм,\
-               \nДобавки.....{person * 20} грамм,\
-               \nМВУУУ-ХА-ХА-ХА! Рецепт БАГЕТ !!'
+            \nБАГЕТА \
+            \nМука В/С....{person * 125} грамм,\
+            \nМука 1с......{person * 102} грамм,\
+            \nВода............{person * 160} грамм,\
+            \nЗакваска....{person * 15} грамм,\
+            \nСоль............{person * 5} грамм,\
+            \nДобавки.....{person * 20} грамм'
         bot.send_message(message.chat.id, text)
+        bot.register_next_step_handler(message, on_click)
 
         # bot.register_next_step_handler(message, too_click)
 
@@ -186,28 +182,27 @@ def baguette(message: telebot.types.Message):
 
 
 # @bot.message_handler(content_types=['text', ])
-def convert(message: telebot.types.Message):
+def pumpkin(message: telebot.types.Message):
     try:
         values = message.text.split(' ')
-        if len(values) != 1:
+        if len(values) != 1: 
             raise APIException('Знвчение должно быть одно!')
         persons = values
-
         person = int(''.join(map(str, persons)))
-
     except APIException as e:
         bot.reply_to(message, f'Ошибка!\n{e}')
     except Exception as e:
         bot.reply_to(message, f'Не удалось обработать команду!\nВведите целое число!\nОшибка: {e}')
     else:
         text = f'Количество буханок: {person}\
-               \nМука В/С....{person * 125} грамм,\
-               \nМука 1с......{person * 102} грамм,\
-               \nВода............{person * 160} грамм,\
-               \nЗакваска....{person * 15} грамм,\
-               \nСоль............{person * 5} грамм,\
-               \nДобавки.....{person * 20} грамм,\
-               \nМВУУУ-ХА-ХА-ХА! I`am CRAGY-DACK !!'
+            \nТЫКВЕННОГО хлеба:\
+            \nМука В/С....{person * 125} грамм,\
+            \nМука 1с......{person * 102} грамм,\
+            \nВода............{person * 160} грамм,\
+            \nЗакваска....{person * 15} грамм,\
+            \nСоль............{person * 5} грамм,\
+            \nДобавки.....{person * 20} грамм\'
+               
         bot.send_message(message.chat.id, text)
 
 
