@@ -19,14 +19,20 @@ def start(message):
     markup.add(types.KeyboardButton('Фитнес'))
     markup.add(types.KeyboardButton('Бородинский'))
     bot.send_message(message.chat.id, f'Привет, {message.from_user.first_name}!', reply_markup=markup)
-    bot.register_next_step_handler(message, pumpkin)
+    bot.register_next_step_handler(message, on_click)
+def on_click(message):
+    if message == 'Тыквенный':
+        bot.send_message(message.chat.id, "Введите число булок")
+        # bot.register_next_step_handler(message, too_click)
+
+# def too_click():
+#     @bot.message_handler(content_types=['text', ])
+#     def baguette(message: telebot.types.Message):
 
 
-    def pumpkin(message):
-         if message.text == 'Тыквенный':
-              bot.send_message(message.chat.id, "Введите число булок")
 
-    # if message.text == 'Багет':
+    #  elif message.text ==  
+            # if message.text == 'Багет':
     #      bot.register_next_step_handler(message, baguette)     
     #      pumpkin()  
          
@@ -53,51 +59,51 @@ def start(message):
 #         bot.register_next_step_handler(message, convert)
 
 
-@bot.message_handler(content_types=['text', ])
-def baguette(message: telebot.types.Message):
-        try:
-            values = message.text.split(' ')
-            if len(values) != 1:
-                raise APIException('Знвчение должно быть одно!')
-            persons = values
-            person = int(''.join(map(str, persons)))
-        except APIException as e:
-            bot.reply_to(message, f'Ошибка!\n{e}')
-        except Exception as e:
-            bot.reply_to(message, f'Не удалось обработать команду!\nВведите целое число!\nОшибка: {e}')
-        else:
-            text = f'Количество буханок: {person}\
-                \nМука В/С....{person * 125} грамм,\
-                \nМука 1с......{person * 102} грамм,\
-                \nВода............{person * 160} грамм,\
-                \nЗакваска....{person * 15} грамм,\
-                \nСоль............{person * 5} грамм,\
-                \nДобавки.....{person * 20} грамм,\
-                \nРецептура БАГЕТ'
-            bot.send_message(message.chat.id, text)
+# @bot.message_handler(content_types=['text', ])
+# def baguette(message: telebot.types.Message):
+#         try:
+#             values = message.text.split(' ')
+#             if len(values) != 1:
+#                 raise APIException('Знвчение должно быть одно!')
+#             persons = values
+#             person = int(''.join(map(str, persons)))
+#         except APIException as e:
+#             bot.reply_to(message, f'Ошибка!\n{e}')
+#         except Exception as e:
+#             bot.reply_to(message, f'Не удалось обработать команду!\nВведите целое число!\nОшибка: {e}')
+#         else:
+#             text = f'Количество буханок: {person}\
+#                 \nМука В/С....{person * 125} грамм,\
+#                 \nМука 1с......{person * 102} грамм,\
+#                 \nВода............{person * 160} грамм,\
+#                 \nЗакваска....{person * 15} грамм,\
+#                 \nСоль............{person * 5} грамм,\
+#                 \nДобавки.....{person * 20} грамм,\
+#                 \nРецептура БАГЕТ'
+#             bot.send_message(message.chat.id, text)
 
 # @bot.message_handler(content_types=['text', ])
-def pumpkin(message: telebot.types.Message):
-        try:
-            values = message.text.split(' ')
-            if len(values) != 1:
-                raise APIException('Знвчение должно быть одно!')
-            persons = values
-            person = int(''.join(map(str, persons)))
-        except APIException as e:
-            bot.reply_to(message, f'Ошибка!\n{e}')
-        except Exception as e:
-            bot.reply_to(message, f'Не удалось обработать команду!\nВведите целое число!\nОшибка: {e}')
-        else:
-             text = f'Количество буханок: {person}\
-                \nМука В/С....{person * 125} грамм,\
-                \nМука 1с......{person * 102} грамм,\
-                \nВода............{person * 160} грамм,\
-                \nЗакваска....{person * 15} грамм,\
-                \nСоль............{person * 5} грамм,\
-                \nДобавки.....{person * 20} грамм,\
-                \nРецептура Тыквенный'
-             bot.send_message(message.chat.id, text)
+# def pumpkin(message: telebot.types.Message):
+#         try:
+#             values = message.text.split(' ')
+#             if len(values) != 1:
+#                 raise APIException('Знвчение должно быть одно!')
+#             persons = values
+#             person = int(''.join(map(str, persons)))
+#         except APIException as e:
+#             bot.reply_to(message, f'Ошибка!\n{e}')
+#         except Exception as e:
+#             bot.reply_to(message, f'Не удалось обработать команду!\nВведите целое число!\nОшибка: {e}')
+#         else:
+#              text = f'Количество буханок: {person}\
+#                 \nМука В/С....{person * 125} грамм,\
+#                 \nМука 1с......{person * 102} грамм,\
+#                 \nВода............{person * 160} грамм,\
+#                 \nЗакваска....{person * 15} грамм,\
+#                 \nСоль............{person * 5} грамм,\
+#                 \nДобавки.....{person * 20} грамм,\
+#                 \nРецептура Тыквенный'
+#              bot.send_message(message.chat.id, text)
 
    
 # @bot.callback_query_handler(func=lambda callback: True)
