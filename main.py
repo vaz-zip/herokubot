@@ -5,7 +5,7 @@ from extension import APIException
 
 bot = telebot.TeleBot(TOKEN)
 
-@bot.message_handler(commands=['start'], content_types=['text', ])
+@bot.message_handler(commands=['start', '/'], content_types=['text', ])
 def start(message):
     markup = types.ReplyKeyboardMarkup()
     markup.add(types.KeyboardButton('Багет'))
@@ -45,6 +45,7 @@ def baguette(message: telebot.types.Message):
         bot.reply_to(message, f'Ошибка!\n{e}')
     except Exception as e:
         bot.reply_to(message, f'Не удалось обработать команду!\nВведите целое число!\nОшибка: {e}')
+        bot.register_next_step_handler(message, start)
     else:
         text = f'Количество буханок \
             \nБАГЕТА: {person} \
@@ -62,7 +63,8 @@ def borodinsky(message: telebot.types.Message):
     try:
         values = message.text.split(' ')
         if len(values) != 1:
-            raise APIException('Знвчение должно быть одно!')
+            raise APIException('Знвчение должно быть одно, попробуйте снова!')
+        bot.register_next_step_handler(message, on_click)
         persons = values
         person = int(''.join(map(str, persons)))
     except APIException as e:
