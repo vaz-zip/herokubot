@@ -2,6 +2,7 @@ import telebot
 from telebot import types
 from config import TOKEN
 from extension import APIException
+from articul import articul
 
 bot = telebot.TeleBot(TOKEN)
 
@@ -17,10 +18,9 @@ def start(message):
                       \nВыберите в меню наменование хлеба!', reply_markup=markup)
     bot.register_next_step_handler(message, on_click)
 
-def articul(message, art):
-    bot.send_message(message.chat.id, f"{message.from_user.first_name}, введите количество.")
-    bot.register_next_step_handler(message, art)
-
+# def articul(message, art):
+#     bot.send_message(message.chat.id, f"{message.from_user.first_name}, введите количество.")
+#     bot.register_next_step_handler(message, art)
 
 def on_click(message):
     if message.text == 'Багет':
@@ -33,6 +33,7 @@ def on_click(message):
         articul(message, pumpkin)
     elif message.text == 'Фитнес':
         articul(message, fitness)
+        
 
 def baguette(message: telebot.types.Message):
     try:
@@ -64,7 +65,6 @@ def borodinsky(message: telebot.types.Message):
         values = message.text.split(' ')
         if len(values) != 1:
             raise APIException('Знвчение должно быть одно, попробуйте снова!')
-        bot.register_next_step_handler(message, on_click)
         persons = values
         person = int(''.join(map(str, persons)))
     except APIException as e:
