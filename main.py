@@ -48,7 +48,7 @@ def baguette(message: telebot.types.Message):
         bot.register_next_step_handler(message, start)
     else:
         text = f'Количество буханок \
-            \nБАГЕТА: {person} \
+            \nБАГЕТА: {person}\
             \nМука В/С....{person * 125} грамм,\
             \nМука 1с......{person * 102} грамм,\
             \nВода............{person * 160} грамм,\
@@ -161,7 +161,11 @@ bot.polling(non_stop=True)
 
 
 
-
+# # exchanges = {
+#     'доллар': 'USD',
+#     'евро': 'EUR',
+#     'рубль': 'RUB'
+# }
 # def recipe(person, r_1, r_2, r_3, r_4, r_5, r_6 ):
 #     text = f'Количество буханок \
 #             \nБАГЕТА: {person} \
